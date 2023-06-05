@@ -21,6 +21,8 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="css/style.css">
+<script src="https://kit.fontawesome.com/b4b848ea5a.js"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- nav panel -->
