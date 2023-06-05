@@ -14,7 +14,7 @@
 		<ul class="list-unstyled components mb-5">
 			<li class="active"><a href="#"><span class="fa fa-home mr-3"></span>
 					Home</a></li>
-			<li><a href="#"><span class="fa fa-user mr-3"></span> About</a></li>
+			<li><a href="master.jsp?child=child1"><span class="fa fa-user mr-3"></span> Child 1</a></li>
 			<li><a href="#"><span class="fa fa-briefcase mr-3"></span>
 					Portfolio</a></li>
 			<li><a href="#"><span class="fa fa-sticky-note mr-3"></span>
