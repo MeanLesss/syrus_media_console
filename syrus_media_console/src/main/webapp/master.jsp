@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Sidebar 03</title>
+<title>Syrus media console</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,14 +33,25 @@
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5 pt-5">
 		   <%
-                String child = request.getParameter("child");
-                if ("child1".equals(child)) {
-                	out.println("<h2 class='mb-4'>Home page</h2>");
-                    %><%@ include file="child1.jsp" %><%
-                } else if ("child2".equals(child)) {
-                    %><%@ include file="child2.jsp" %><%
-                } else {
-                    %><%@ include file="child2.jsp" %><%
+                /* String child = request.getParameter("child"); */
+                if ("videos".equals(child)) {
+                  %><%@ include file="videos.jsp" %><%
+                } else if ("home".equals(child)) {
+              
+                    %><%@ include file="home.jsp" %><%
+                } else if ("musics".equals(child)) {
+	                
+	                %><%@ include file="musics.jsp" %><%
+	            } else if ("groups".equals(child)) {
+	                
+	                %><%@ include file="groups.jsp" %><%
+	            } else if ("setting".equals(child)) {
+	                
+	                %><%@ include file="setting.jsp" %><%
+	            }
+	             else 
+	            {
+                    %><%@ include file="home.jsp" %><%
                 }
             %>
 			
