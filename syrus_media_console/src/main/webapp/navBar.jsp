@@ -29,10 +29,12 @@
 
 		<!-- %> -->
 		<div class="footer">
-			<ul>
-				<button class="btn btn-danger">
-					<a href="#"><span class="fa fa-door-open mr-3"></span> Log out</a>
-				</button>
+			<ul class="list-unstyled components mb-5">
+				<form action="/syrus_media_console/Logout_user" method="GET">
+					<button class="btn btn-danger" type="submit">
+						<a href="#"><span class="fa fa-door-open mr-3"></span> Log out</a>
+					</button>
+				</form>
 			</ul>
 		</div>
 
