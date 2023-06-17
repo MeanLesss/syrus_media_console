@@ -18,7 +18,7 @@
 	<h1>Syrus media center</h1>
 	<h3>Log in</h3>
 	<form action="/syrus_media_console/Login_user" method="POST">
-		<label for="username">Username:</label> 
+		<label for="username">Username :</label> 
 			<input class="form-control" type="text" id="username" name="username">
 			<br>
 			<labelfor="password">Password:</label> 
@@ -35,7 +35,5 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-
-
 </body>
 </html>
