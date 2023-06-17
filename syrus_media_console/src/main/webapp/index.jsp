@@ -21,15 +21,13 @@
 		<label for="username">Username :</label> 
 			<input class="form-control" type="text" id="username" name="username">
 			<br>
-			<labelfor="password">Password:</label> 
+			<labelfor="password">Password :</label> 
 			<input class="form-control" type="password" id="password" name="password">
 			<br>
-			 <input class="btn btn-primary" type="" value="Sign up"> 
+			<a class="btn btn-primary" href="SignUpController">Sign up</a> 
 			<input class="btn btn-success" type="submit" value="Log in">
 
 	</form>
-	<!-- Optional JavaScript; choose one of the two! -->
-
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
