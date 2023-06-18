@@ -22,8 +22,10 @@
 		<ul class="list-unstyled components mb-5">
 			<li class="<%= "home".equals(child) ? "active" : ""%> " ><a href="master.jsp?child=home"><span
 					class="fa fa-home mr-3 "></span> Home</a></li>
-			<li class="<%= "videos".equals(child) ? "active" : ""%> "><a href="master.jsp?child=videos"><span
-					class="fa fa-video mr-3"></span> Videos</a></li>
+			<%-- <li class="<%= "videos".equals(child) ? "active" : ""%> "><a href="master.jsp?child=videos"><span
+					class="fa fa-video mr-3"></span> Videos</a></li> --%>
+			<li class="<%= "videos".equals(child) ? "active" : ""%> "><a href="VideoController"><span
+			class="fa fa-video mr-3"></span> Videos</a></li>
 			<li class="<%= "musics".equals(child) ? "active" : ""%> "><a href="master.jsp?child=musics"><span class="fa fa-music mr-3"></span>
 					Musics</a></li>
 			<li class="<%= "groups".equals(child) ? "active" : ""%> "><a href="master.jsp?child=groups"><span class="fa fa-users mr-3"></span>
