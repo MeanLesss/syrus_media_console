@@ -134,11 +134,11 @@ sup {
 
 a {
   color: #007bff;
-  text-decoration: none;
+  text-decoration: none !important;
   background-color: transparent; }
   a:hover {
     color: #0056b3;
-    text-decoration: underline; }
+    text-decoration: none !important; }
 
 a:not([href]):not([tabindex]) {
   color: inherit;
@@ -8229,12 +8229,13 @@ h1, h2, h3, h4, h5,
   #sidebar ul.components {
     padding: 0; }
   #sidebar ul li {
-    font-size: 16px; }
+    font-size: 29px; }
     #sidebar ul li > ul {
       margin-left: 10px; }
       #sidebar ul li > ul li {
         font-size: 14px; }
     #sidebar ul li a {
+      text-decoration: none;
       padding: 10px 0;
       display: block;
       color: rgba(255, 255, 255, 0.6);
