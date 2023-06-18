@@ -45,6 +45,11 @@
 					<h3 class="title">
 						Syrus Media Center
 					</h3>
+					<% if (request.getAttribute("errorMessage") != null) { %>
+					    <div class="alert alert-danger" role="alert">
+					        <%= request.getAttribute("errorMessage") %>
+					    </div>
+					<% } %>
 						<h3 class="title">Log in</h3>
 						
 					<form action="/syrus_media_console/Login_user" method="POST">
