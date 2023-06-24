@@ -1,9 +1,7 @@
 <%@page import="models.Video"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
-    
-    
+	pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +9,51 @@
 <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet">
 <script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/videojs-rtsp-stream@1"></script>
-
+<script type="text/javascript">
+	window.VIDEOJS_NO_DYNAMIC_STYLE = true;
+</script>
 
 <title>View Video</title>
+<style type="text/css">
+.vjs-poster {
+	background-size: cover !important;
+}
+
+h1 {
+	color: #494ca2
+}
+
+.vjs-16-9 {
+	width: 100% !important;
+	height: 40% !important;
+	padding: 0;
+}
+/* Change all text and icon colors in the player. */
+.vjs-matrix.video-js {
+	color: #00ff00;
+}
+
+/* Change the border of the big play button. */
+.vjs-matrix.vjs-big-play-button {
+	border-color: #00ff00;
+}
+
+/* Change the color of various "bars". */
+.vjs-matrix .vjs-volume-level, .vjs-matrix .vjs-play-progress,
+	.vjs-matrix .vjs-slider-bar {
+	background: #00ff00;
+}
+
+.videoContainer {
+	display: flex;
+	height: 80% !important;
+}
+</style>
+
 </head>
 
 <%
-    // Get the value of the "videoID" parameter from the request object
+// Get the value of the "videoID" parameter from the request object
 /*     String videoID = request.getParameter("videoID");
 
     // Look up the video object from a database or other data source using the videoID
@@ -28,20 +64,52 @@
     String url = video.getFile_path(); */
 %>
 <body>
-	selected video
-	<%
-	if (request.getAttribute("video") != null) {
+	<div class="d-flex row w-100 ">
+		<div class="videoContainer w-100 justify-content-center">
+			<%
+			if (request.getAttribute("video") != null) {
 
-		Video video = (Video)request.getAttribute("video");
+				Video video = (Video) request.getAttribute("video");
+			%>
+			<video id="player"
+				class="video-js
+				vjs-big-play-centered
+				vjs-show-big-play-button-on-pause
+				vjs-16-9
+				vjs-fluid
+				vjs-matrix
+				vjs-layout-medium
+				vjs-layout-large 
+				vjs-layout-small 
+				vjs-layout-x-small"
+				controls preload="auto">
+				<source src="<%=request.getContextPath() + video.getFile_path()%>">
+			</video>
+		</div>
+		<h1><%=video.getTitle()%></h1>
+		<%
+		}
 		%>
-	<video id="player" class="video-js" controls preload="auto" width="640" height="268">
-        <source src="<%=request.getContextPath()+ video.getFile_path()%>">
-    </video>
-    <%
-	}
-	%>
-	   <script>
-        var player = videojs('player');
-    </script>
+	</div>
+	<script>
+		var player = videojs('player', {
+			aspectRatio : '16:9'
+		});
+		player.fluid(false);
+		/* player.height=50;	 */
+		player.on('pause', function() {
+
+			// Modals are temporary by default. They dispose themselves when they are
+			// closed; so, we can create a new one each time the player is paused and
+			// not worry about leaving extra nodes hanging around.
+			/* var modal = player.createModal('<h1>This is a modal!</h1>');
+
+			// When the modal closes, resume playback.
+			modal.addClass('vjs-my-fancy-modal');
+			modal.on('modalclose', function() {
+				player.play();
+			}); */
+		});
+	</script>
 </body>
 </html>

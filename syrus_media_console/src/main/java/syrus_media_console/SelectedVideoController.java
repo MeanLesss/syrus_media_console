@@ -5,9 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import models.Video;
-import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
-//import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
+import models.Video; 
 
 import java.io.IOException;
 import java.io.PrintWriter;

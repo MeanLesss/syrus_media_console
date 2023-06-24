@@ -6,7 +6,8 @@
 		/* font-size: 18px !important; */
 	}
 </style>
-<nav id="sidebar" class="active">
+<nav id="sidebar" ><!-- class="active"  -->
+
 	<div class="custom-menu">
 		<button type="button" id="sidebarCollapse" class="btn btn-primary">
 			<i class="fas fa-bars"></i> <span class="sr-only">Toggle Menu</span>
@@ -53,13 +54,13 @@
 			    </div>
 			<% } %>
 		
-			<ul class="list-unstyled components mb-5">
+			
 				<form action=Logout_user method="GET">
 					<button class="btn btn-danger" type="submit">
 						<span class="fa fa-door-open mr-3"></span> Log out
 					</button>
 				</form>
-			</ul>
+			
 		</div>
 
 	</div>
