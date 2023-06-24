@@ -1,6 +1,18 @@
 package models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import jakarta.annotation.Resource;
+
+
 public class Video {
+	
+	
 	int id;
 	String title;
 	String description;
@@ -18,7 +30,11 @@ public class Video {
 	public String getTitle() {
 		return title;
 	}
-//	public Video() {};
+	public Video() {};
+	public Video(String video_id) {
+		super();
+		this.id = Integer.parseInt(video_id);
+	};
 	public Video(int id, String title, String description, String file_path, String thumbnail_path, String genre,
 			String user_id) {
 		super();
@@ -63,5 +79,22 @@ public class Video {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-
+	/*
+	 * @Resource(name = "jdbc/syrus_media_console") private DataSource dataSource;
+	 * public Video getVideoByID(String video_id) { Video video = null; try
+	 * (Connection conn = dataSource.getConnection()) { String query =
+	 * "SELECT * FROM videos WHERE id = ?"; PreparedStatement ps =
+	 * conn.prepareStatement(query); ps.setString(1, this.id+""); ResultSet rs =
+	 * ps.executeQuery();
+	 * 
+	 * while (rs.next()) { video = new Video(rs.getInt("id"), rs.getString("title"),
+	 * rs.getString("description"), rs.getString("file_path"),
+	 * rs.getString("thumbnail_path"), rs.getString("genre"),
+	 * rs.getString("user_id"));
+	 * 
+	 * }
+	 * 
+	 * } catch (SQLException e) { // Handle exception // out.println("<h1>" +
+	 * e.getMessage() + "</h1>"); e.printStackTrace(); } return video; }
+	 */
 }

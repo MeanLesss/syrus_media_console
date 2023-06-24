@@ -73,7 +73,7 @@ public class VideoController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("videos", videos);
+		request.setAttribute("videoList", videos);
 		request.getRequestDispatcher("master.jsp?child=videos").forward(request, response);
 	}
 

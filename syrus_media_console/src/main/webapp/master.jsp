@@ -13,14 +13,21 @@
 	rel="stylesheet">
 
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 <link rel="stylesheet" href="css/style.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="sweetalert2.min.js"></script>
 <script src="https://kit.fontawesome.com/b4b848ea5a.js"
 	crossorigin="anonymous"></script>
+<link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-rtsp-stream@1"></script>
+
 </head>
 <body>
 	<!-- nav panel -->
@@ -30,30 +37,33 @@
 
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5 pt-5">
-		   <%
-                /* String child = request.getParameter("child"); */
-                if ("videos".equals(child)) {
-                  %><%@ include file="videos.jsp" %><%
-                } else if ("home".equals(child)) {
-              
-                    %><%@ include file="home.jsp" %><%
-                } else if ("musics".equals(child)) {
-	                
-	                %><%@ include file="musics.jsp" %><%
-	            } else if ("groups".equals(child)) {
-	                
-	                %><%@ include file="groups.jsp" %><%
-	            } else if ("setting".equals(child)) {
-	                
-	                %><%@ include file="setting.jsp" %><%
-	            }
-	             else 
-	            {
-                    %><%@ include file="home.jsp" %><%
-                }
-            %>
-			
-	
+			<%
+			/* String child = request.getParameter("child");  */
+			if ("videos".equals(child)) {
+			%><%@ include file="videos.jsp"%>
+			<%
+			} else if ("home".equals(child)) {
+			%><%@ include file="home.jsp"%>
+			<%
+			} else if ("musics".equals(child)) {
+			%><%@ include file="musics.jsp"%>
+			<%
+			} else if ("groups".equals(child)) {
+			%><%@ include file="groups.jsp"%>
+			<%
+			} else if ("setting".equals(child)) {
+			%><%@ include file="setting.jsp"%>
+			<%
+			} else if ("viewVideo".equals(child)) {
+			%><%@ include file="viewVideo.jsp"%>
+			<%
+			} else {
+			%><%@ include file="home.jsp"%>
+			<%
+			}
+			%>
+
+
 		</div>
 	</div>
 
@@ -61,5 +71,9 @@
 	<script src="js/popper.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/main.js"></script>
+	
+	<script type="text/javascript">
+		
+	</script>
 </body>
 </html>

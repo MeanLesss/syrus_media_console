@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%-- <%@ include file="master.jsp" %> --%>
+
 <body>
 	<h2>Videos</h2>
 	<%-- 	<%
@@ -69,13 +70,19 @@
 
 	<!-- The card display -->
 	<%
-	if (request.getAttribute("videos") != null) {
+	if (request.getAttribute("videoList") != null) {
 
-		List<Video> videos = (List<Video>) request.getAttribute("videos");
+		List<Video> videos = (List<Video>) request.getAttribute("videoList");
 		for (Video video : videos) {
 	%>
+	<a href="SelectedVideoController?child=viewVideo&videoID=<%=video.getId()%>">
+		<span class="fa fa-video mr-3"></span> <%=video.getTitle()%>
+	</a>
 	<h1><%=video.getTitle()%></h1>
 	<img src="<%=request.getContextPath()+video.getThumbnail_path()%>" alt="image">
+	 <video id="player" class="video-js" controls preload="auto" width="640" height="268">
+        <source src="<%=request.getContextPath()+video.getFile_path()%>" >
+    </video>
 	<%
 	}
 	} else {
@@ -87,7 +94,9 @@
 	<%-- 	<img src="<%= filePath %>" alt="Image">
 	<!-- or -->
 	<video src="<%= filePath %>" controls></video> --%>
-
+   <script>
+        var player = videojs('player');
+    </script>
 	<script type="text/javascript">
 		document
 				.getElementById('upload-form')

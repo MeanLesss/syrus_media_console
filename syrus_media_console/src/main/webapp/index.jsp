@@ -27,6 +27,11 @@
 	crossorigin="anonymous">
 <!-- Main CSS-->
 <link href="css/main.css" rel="stylesheet" media="all">
+
+<link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-rtsp-stream@1"></script>
+
 <title>Syrus media center</title>
 
 <style type="text/css">
@@ -42,16 +47,18 @@
 			<div class="card card-3">
 				<div class="card-heading"></div>
 				<div class="card-body">
-					<h3 class="title">
-						Syrus Media Center
-					</h3>
-					<% if (request.getAttribute("errorMessage") != null) { %>
-					    <div class="alert alert-danger" role="alert">
-					        <%= request.getAttribute("errorMessage") %>
-					    </div>
-					<% } %>
-						<h3 class="title">Log in</h3>
-						
+					<h3 class="title">Syrus Media Center</h3>
+					<%
+					if (request.getAttribute("errorMessage") != null) {
+					%>
+					<div class="alert alert-danger" role="alert">
+						<%=request.getAttribute("errorMessage")%>
+					</div>
+					<%
+					}
+					%>
+					<h3 class="title">Log in</h3>
+
 					<form action="/syrus_media_console/Login_user" method="POST">
 						<div class="input-group">
 							<input class="input--style-3" type="text" id="username"

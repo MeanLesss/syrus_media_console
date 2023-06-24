@@ -89,4 +89,14 @@
     <servlet-name>VideoController</servlet-name>
     <url-pattern>/VideoController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SelectedVideoController</display-name>
+    <servlet-name>SelectedVideoController</servlet-name>
+    <servlet-class>syrus_media_console.SelectedVideoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SelectedVideoController</servlet-name>
+    <url-pattern>/SelectedVideoController</url-pattern>
+  </servlet-mapping>
 </web-app>
