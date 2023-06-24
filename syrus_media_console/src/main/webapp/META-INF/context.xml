@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="jdbc/syrus_media_console" 
+		auth="Container"
+		type="javax.sql.DataSource" 
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/syrus_media_console" 
+		username="root"
+		password="addictedtoyourlips" maxTotal="20" maxIdle="60"
+	/>
+</Context>
