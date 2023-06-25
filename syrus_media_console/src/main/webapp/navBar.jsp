@@ -5,6 +5,9 @@
 		text-decoration:none !important;
 		/* font-size: 18px !important; */
 	}
+	audio{
+	    width: 98%!important;
+	    }
 </style>
 <nav id="sidebar" ><!-- class="active"  -->
 
@@ -15,13 +18,13 @@
 	</div>
 	<div class="p-4">
 		<h3>
-			<a href="master.jsp" class="text-white logo">Syrus media center</a>
+			<a href="HomeController" class="text-white logo">Syrus media center</a>
 		</h3>
 		<%
 		String child = request.getParameter("child");
 		%>
 		<ul class="list-unstyled components mb-5">
-			<li class="<%= "home".equals(child) ? "active" : ""%> " ><a href="master.jsp?child=home"><span
+			<li class="<%= "home".equals(child) ? "active" : ""%> " ><a href="HomeController"><span
 					class="fa fa-home mr-3 "></span> Home</a></li>
 			<%-- <li class="<%= "videos".equals(child) ? "active" : ""%> "><a href="master.jsp?child=videos"><span
 					class="fa fa-video mr-3"></span> Videos</a></li> --%>

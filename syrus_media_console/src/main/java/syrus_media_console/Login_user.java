@@ -37,7 +37,8 @@ public class Login_user extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+//		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("HomeController").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -63,7 +64,8 @@ public class Login_user extends HttpServlet {
 				session.setAttribute("username", username);
 				session.setAttribute("user_id", user_id);
 
-				request.getRequestDispatcher("master.jsp").forward(request, response);
+				request.getRequestDispatcher("HomeController").forward(request, response);
+//				request.getRequestDispatcher("master.jsp").forward(request, response);
 			} else {
 				request.setAttribute("errorMessage", "User not found! <br>Invalid login credentials!");
 				request.getRequestDispatcher("index.jsp").forward(request, response);

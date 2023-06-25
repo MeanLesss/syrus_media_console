@@ -24,10 +24,10 @@
 <script src="sweetalert2.min.js"></script>
 <script src="https://kit.fontawesome.com/b4b848ea5a.js"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet">
 <script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/videojs-rtsp-stream@1"></script>
-
 </head>
 <body>
 	<!-- nav panel -->
@@ -72,8 +72,5 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/main.js"></script>
 	
-	<script type="text/javascript">
-		
-	</script>
 </body>
 </html>
