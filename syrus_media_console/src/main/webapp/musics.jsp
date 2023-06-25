@@ -61,7 +61,7 @@ a {
 		</div>
 	</div>
 
-	<div id="cardContainer" class="row gap-2">
+	<div id="cardContainer" class="row gap-4">
 
 		<!-- The card display -->
 		<%
@@ -83,9 +83,12 @@ a {
 						class="fa fa-video mr-3"></span> <%=music.getTitle()%>
 					</a>
 				</h5> --%>
-				<p class="card-text" style="overflow: hidden; width: 100%;"><%=music.getDescription()%></p>
+				<h5>Descrtiption:</h5>
+				<p class="card-text" style="width: 100%;"><%=music.getDescription()%></p>
 				<audio src="<%=request.getContextPath() + music.getFile_path()%>"
-					controls preload="auto"></audio>
+					controls preload="none"></audio>
+					<h5>Genre:</h5>
+					<p  class="badge rounded-pill bg-info text-dark"><%=music.getGenre()%></p>
 			</div>
 		</div>
 

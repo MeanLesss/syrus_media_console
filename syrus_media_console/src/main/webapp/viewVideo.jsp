@@ -87,7 +87,7 @@ h1 {
 			</video>
 		</div>
 
-		<div class="accordion" id="accordionPanelsStayOpenExample">
+		<div class="accordion" id="accordionPanelsStayOpenExample ">
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="panelsStayOpen-headingOne">
 					<button class="accordion-button" type="button"
@@ -98,10 +98,13 @@ h1 {
 					</button>
 				</h2>
 				<div id="panelsStayOpen-collapseOne"
-					class="accordion-collapse collapse show"
+					class="accordion-collapse collapse"
 					aria-labelledby="panelsStayOpen-headingOne">
 					<div class="accordion-body">
+						<h6>Description:</h6>
 						<p><%=video.getDescription()%></p>
+						<h6>Genre: </h6>
+						<p  class="badge rounded-pill bg-info text-dark"><%=video.getGenre()%></p>
 					</div>
 				</div>
 			</div>

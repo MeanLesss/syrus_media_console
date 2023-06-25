@@ -6,6 +6,6 @@
 		driverClassName="com.mysql.cj.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/syrus_media_console" 
 		username="root"
-		password="addictedtoyourlips" maxTotal="20" maxIdle="60"
+		password="addictedtoyourlips" maxTotal="20" maxIdle="120"
 	/>
 </Context>

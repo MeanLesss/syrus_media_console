@@ -73,7 +73,7 @@
 		</div>
 	</div>
 
-	<div id="cardContainer" class="row gap-2">
+	<div id="cardContainer" class="row gap-4">
 
 		<!-- The card display -->
 		<%
