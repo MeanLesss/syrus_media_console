@@ -1,10 +1,10 @@
 package models;
- 
 
-
-public class Video {
-	
-	
+/**
+ * Servlet implementation class Music
+ */
+public class Music  {
+       
 	int id;
 	String title;
 	String description;
@@ -12,22 +12,14 @@ public class Video {
 	String thumbnail_path;
 	String genre;
 	String user_id;
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public Video() {};
-	public Video(String video_id) {
+    public Music() {
+        super();
+    }
+	public Music(String music_id) {
 		super();
-		this.id = Integer.parseInt(video_id);
+		this.id = Integer.parseInt(music_id);
 	};
-	public Video(int id, String title, String description, String file_path, String thumbnail_path, String genre,
+    public Music(int id, String title, String description, String file_path, String thumbnail_path, String genre,
 			String user_id) {
 		super();
 		this.id = id;
@@ -37,6 +29,15 @@ public class Video {
 		this.thumbnail_path = thumbnail_path;
 		this.genre = genre;
 		this.user_id = user_id;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
@@ -71,4 +72,6 @@ public class Video {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
+
 }

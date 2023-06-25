@@ -89,6 +89,20 @@
     <servlet-name>VideoController</servlet-name>
     <url-pattern>/VideoController</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <description></description>
+    <display-name>MusicController</display-name>
+    <servlet-name>MusicController</servlet-name>
+    <servlet-class>syrus_media_console.MusicController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MusicController</servlet-name>
+    <url-pattern>/MusicController</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <servlet>
     <description></description>
     <display-name>SelectedVideoController</display-name>
@@ -98,5 +112,15 @@
   <servlet-mapping>
     <servlet-name>SelectedVideoController</servlet-name>
     <url-pattern>/SelectedVideoController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Music</display-name>
+    <servlet-name>Music</servlet-name>
+    <servlet-class>models.Music</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Music</servlet-name>
+    <url-pattern>/Music</url-pattern>
   </servlet-mapping>
 </web-app>

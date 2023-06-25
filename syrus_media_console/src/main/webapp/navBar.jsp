@@ -27,7 +27,7 @@
 					class="fa fa-video mr-3"></span> Videos</a></li> --%>
 			<li class="<%= "videos".equals(child) ? "active" : ""%> "><a href="VideoController"><span
 			class="fa fa-video mr-3"></span> Videos</a></li>
-			<li class="<%= "musics".equals(child) ? "active" : ""%> "><a href="master.jsp?child=musics"><span class="fa fa-music mr-3"></span>
+			<li class="<%= "musics".equals(child) ? "active" : ""%> "><a href="MusicController"><span class="fa fa-music mr-3"></span>
 					Musics</a></li>
 			<li class="<%= "groups".equals(child) ? "active" : ""%> "><a href="master.jsp?child=groups"><span class="fa fa-users mr-3"></span>
 					Groups</a></li>

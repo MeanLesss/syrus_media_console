@@ -36,7 +36,7 @@
 		<%@include file="navBar.jsp"%>
 
 		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5 pt-5">
+		<div id="content" class="p-5 p-md-5 p-lg-5 pt-5">
 			<%
 			/* String child = request.getParameter("child");  */
 			if ("videos".equals(child)) {
