@@ -129,4 +129,14 @@
     <servlet-name>HomeController</servlet-name>
     <url-pattern>/HomeController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MobileController</display-name>
+    <servlet-name>MobileController</servlet-name>
+    <servlet-class>syrus_media_console.MobileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MobileController</servlet-name>
+    <url-pattern>/MobileController</url-pattern>
+  </servlet-mapping>
 </web-app>

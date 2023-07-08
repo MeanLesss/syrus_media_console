@@ -8,8 +8,8 @@
 <title>Music</title>
 </head>
 <style>
-a {
-	color: #494ca2;
+h5,span {
+ 	color:#494ca2; 
 }
 </style>
 <body>
@@ -83,11 +83,12 @@ a {
 						class="fa fa-video mr-3"></span> <%=music.getTitle()%>
 					</a>
 				</h5> --%>
-				<h5>Descrtiption:</h5>
+				<h5><span class="fa fa-music">:</span>  <%=music.getTitle()%></h5>
+				<h6>Descrtiption:</h6>
 				<p class="card-text" style="width: 100%;"><%=music.getDescription()%></p>
 				<audio src="<%=request.getContextPath() + music.getFile_path()%>"
 					controls preload="none"></audio>
-					<h5>Genre:</h5>
+					<h6>Genre:</h6>
 					<p  class="badge rounded-pill bg-info text-dark"><%=music.getGenre()%></p>
 			</div>
 		</div>
