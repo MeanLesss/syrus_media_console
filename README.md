@@ -3,10 +3,12 @@
 # Step 1  ================>
 ## For the syrus_media_console (The Dynamic website JAVA): (Need before proceed to step 2)
 - this project is using Dynamic web project 5.0 and JAVA 11
+- this project can be hosted using tomcat server 10.1 (lower or higher version will not work)
 - this project is using MySql database
 - change database username and password in META-INF/context.xml
 - create database (syrus_media_console)
 - import table provided in DB folder attach within the project
+- 
 
 # Note *********************
 ```
