@@ -51,6 +51,8 @@ public class MobileController extends HttpServlet {
 		String video_id = "54";
 		String query = "SELECT * FROM videos WHERE id = ?";
 		try (Connection conn = dataSource.getConnection()) {
+			 // Set the content type to video
+		    response.setContentType("video/mp4");
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, video_id);
 			ResultSet rs = ps.executeQuery();
@@ -73,7 +75,7 @@ public class MobileController extends HttpServlet {
 			ServletOutputStream out = response.getOutputStream();
 
 			// Write the video data to the output stream
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[1024*1024];
 			int bytesRead;
 			while ((bytesRead = in.read(buffer)) != -1) {
 				out.write(buffer, 0, bytesRead);
@@ -85,9 +87,16 @@ public class MobileController extends HttpServlet {
 		} catch (SQLException e) {
 			// Handle exception
 			e.printStackTrace();
+		       logger.log(Level.INFO, "Sql message:");
+			
 		} catch (IOException e) {
+			logger.log(Level.INFO, "IO message:");
 			e.printStackTrace();
- 
+
+		}catch(Exception e) {
+			
+			logger.log(Level.INFO, "Eception:");
+			e.printStackTrace();
 		}
 	}
 
