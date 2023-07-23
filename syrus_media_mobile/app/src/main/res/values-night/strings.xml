@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">syrus_media_mobile</string>
     <string name="input_confirm_password">Input Confirm Password</string>
     <string name="input_password">Input Password</string>
     <string name="input_email">Input Email</string>
@@ -7,12 +7,10 @@
     <string name="sign_up">Sign Up</string>
     <string name="cancel">Cancel</string>
     <string name="sign_up_title">Sign Up 📝</string>
-    <string name="input_username">Input Username</string>
     <string name="log_in">Log In</string>
     <string name="syrus_media_title">Syrus Media 📼</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
 </resources>
