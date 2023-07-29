@@ -1,11 +1,14 @@
 package com.example.syrus_media_mobile.Models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     int ID;
     String Username;
     String Password;
     String ConfirmPassword;
     String Email;
+    String Phone;
 
     String Error;
     String Success;
@@ -43,7 +46,6 @@ public class User {
         ConfirmPassword = confirmPassword;
     }
 
-    String Phone;
     public User() {
     }
     public User(String username, String password) {

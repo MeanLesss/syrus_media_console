@@ -10,5 +10,7 @@ import retrofit2.http.POST;
 public interface ServiceApi {
         @POST("SignUpController")
         Call<ResponseBody> createUser(@Body User user);
+        @POST("Login_user")
+        Call<ResponseBody> loginUser(@Body User user);
 }
 

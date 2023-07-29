@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -14,6 +15,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
@@ -50,12 +55,43 @@ public class Login_user extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(query);
+			if(request.getParameter("username")== null || request.getParameter("username")== "") {
+				BufferedReader reader = request.getReader();
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = reader.readLine()) != null) {
+				    sb.append(line);
+				}
+				String requestBody = sb.toString();
+
+				// Parse the JSON data
+				Map<String, String> json = new HashMap<>();
+				Pattern pattern = Pattern.compile("\"(\\w+)\":\\s*\"([^\"]+)\"");
+				Matcher matcher = pattern.matcher(requestBody);
+				while (matcher.find()) {
+				    String key = matcher.group(1);
+				    String value = matcher.group(2);
+				    json.put(key, value);
+				}
+
+				username = json.get("Username");
+				password = json.get("Password");
+//				confirmPass = json.get("ConfirmPassword");
+//				email = json.get("Email");
+//				phone = json.get("Phone");
+
+			}
+			
+			
 			
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				int user_id = rs.getInt("id");
+				int user_id = rs.getInt("id");				
+			    String email = rs.getString("email");  
+                String phone = rs.getString("phone_number");  
+
 				// get the session object
 				HttpSession session = request.getSession();
 				// set the session timeout (in seconds)
@@ -64,6 +100,18 @@ public class Login_user extends HttpServlet {
 				session.setAttribute("username", username);
 				session.setAttribute("user_id", user_id);
 
+				if(request.getParameter("username")== null || request.getParameter("username")== "") {
+					 // Send a JSON response containing the user details 
+	                response.setContentType("application/json");
+	                response.setCharacterEncoding("UTF-8");
+	            
+	                String jsonString = String.format("{\"Success\": \"%s\", \"Error\": \"%s\", \"Username\": \"%s\", \"ID\": \"%s\", \"Email\": \"%s\", \"Phone\": \"%s\"}", "Successfully Log in!", "", username, user_id, email, phone);
+
+	                out.print(jsonString);
+	                out.flush();
+	                return;
+				}
+				 
 				request.getRequestDispatcher("HomeController").forward(request, response);
 //				request.getRequestDispatcher("master.jsp").forward(request, response);
 			} else {
@@ -72,6 +120,16 @@ public class Login_user extends HttpServlet {
 			}
 
 		} catch (SQLException e) {
+			
+			if(request.getParameter("username")== null || request.getParameter("username")== "") {
+				 // Send a JSON response containing the user details
+              response.setContentType("application/json");
+              response.setCharacterEncoding("UTF-8");
+              out.print("{\"Success\": \"" + "" + "\", \"Error\": \"" + e.getMessage() + "\", \"User\": {\"Username\": \"" + username + "\", \"Password\": \"" + password + "\"}}");
+              out.flush();
+              return;
+			}
+			
 			out.println("<h1>" + e.getMessage() + e.getLocalizedMessage() + "</h1>");
 			e.printStackTrace();
 		}
