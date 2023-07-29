@@ -50,11 +50,20 @@ public class VideoController extends HttpServlet {
 			throws ServletException, IOException {
 		List<Video> videos = new ArrayList<>();
 		PrintWriter out = response.getWriter();
+	
 		String query = "SELECT * FROM videos WHERE user_id = ?";
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(query);
 			HttpSession session = request.getSession();
-			ps.setString(1, session.getAttribute("user_id").toString());
+			String user_id;
+			Object sessionUserId = session.getAttribute("user_id");
+			if (sessionUserId != null) {
+			    user_id = sessionUserId.toString();
+			} else {
+			    user_id = request.getParameter("user_id");
+			}
+			
+			ps.setString(1, user_id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Video video = new Video(rs.getInt("id"), rs.getString("title"), rs.getString("description"),
@@ -69,6 +78,35 @@ public class VideoController extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		if(request.getParameter("user_id") != null && request.getParameter("user_id") != "") {
+			 // Send a JSON response containing the user details 
+			StringBuilder sb = new StringBuilder();
+			sb.append("[");
+			for (int i = 0; i < videos.size(); i++) {
+			    Video video = videos.get(i);
+			    sb.append("{");
+			    sb.append("\"id\":").append(video.getId()).append(",");
+			    sb.append("\"title\":\"").append(video.getTitle()).append("\",");
+			    sb.append("\"description\":\"").append(video.getDescription()).append("\",");
+			    sb.append("\"file_path\":\"").append(video.getFile_path()).append("\",");
+			    sb.append("\"thumbnail_path\":\"").append(video.getThumbnail_path()).append("\",");
+			    sb.append("\"genre\":\"").append(video.getGenre()).append("\",");
+			    sb.append("\"user_id\":").append(video.getUser_id());
+			    sb.append("}");
+			    if (i < videos.size() - 1) {
+			        sb.append(",");
+			    }
+			}
+			sb.append("]");
+
+			String jsonString = sb.toString();
+
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			out.print(jsonString);
+			out.flush();
+           return;
+		}
 		request.setAttribute("videoList", videos);
 		request.getRequestDispatcher("master.jsp?child=videos").forward(request, response);
 	}
@@ -152,8 +190,8 @@ public class VideoController extends HttpServlet {
 
 			ps.setString(1, title);
 			ps.setString(2, description);
-			ps.setString(3, video_path + File.separator + videoFileName);
-			ps.setString(4, thum_path + File.separator + thumbnailFileName);
+			ps.setString(3, video_path + "/" + videoFileName);
+			ps.setString(4, thum_path + "/" + thumbnailFileName);
 			ps.setString(5, genre);
 			ps.setString(6, user_id);
 

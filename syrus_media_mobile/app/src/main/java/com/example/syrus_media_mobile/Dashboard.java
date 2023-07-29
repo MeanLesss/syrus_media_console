@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -32,7 +33,7 @@ public class Dashboard extends AppCompatActivity {
     User global_user;
     ActivityDashboardBinding dashboardBinding;
     User user ;
-    List<Video> videoList;
+    List<Video> videoList = new ArrayList<Video>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +72,23 @@ public class Dashboard extends AppCompatActivity {
                 try {
                     Gson gson = new Gson();
                     Type videoListType = new TypeToken<List<Video>>(){}.getType();
-                    videoList = gson.fromJson(response.body().charStream(), videoListType);
-                    dashboardBinding.videoCount.setText(videoList.size());
+                    // Check the status code
+                    int statusCode = response.code();
+                    Log.d("Login", "Status code: " + statusCode);
+                    // Print out the raw response data
+                    String rawResponse = response.raw().toString();
+                    Log.d("Login", "Raw response: " + rawResponse);
+//                    String json = response.body().string();
+//                    Log.d("Login", "JSON: " + json);
+
+                    try {
+                        videoList = gson.fromJson(response.body().charStream(), videoListType);
+                        Log.d("Login", "Video list: " + videoList);
+                    } catch (Exception e) {
+                        Log.e("Login", "Error: " + e.getMessage(), e);
+                    }
+                    dashboardBinding.videoCount.setText(String.valueOf(videoList.size()));
+
                     Log.e("Video list", "response video: " + videoList);
                 } catch (Exception e) {
                     Log.e("Login", "Error: " + e.getMessage(), e);

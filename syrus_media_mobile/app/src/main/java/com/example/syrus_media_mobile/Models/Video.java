@@ -9,14 +9,14 @@ public class Video implements Serializable {
     String file_path;
     String thumbnail_path;
     String genre;
-    String user_id;
+    int user_id;
     public Video() {};
     public Video(String video_id) {
         super();
         this.id = Integer.parseInt(video_id);
     };
     public Video(int id, String title, String description, String file_path, String thumbnail_path, String genre,
-                 String user_id) {
+                 int user_id) {
         super();
         this.id = id;
         this.title = title;
@@ -74,11 +74,11 @@ public class Video implements Serializable {
         this.genre = genre;
     }
 
-    public String getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 }

@@ -15,7 +15,7 @@ public interface ServiceApi {
         Call<ResponseBody> createUser(@Body User user);
         @POST("Login_user")
         Call<ResponseBody> loginUser(@Body User user);
-        @GET("getAllVideo")
+        @GET("VideoController")
         Call<ResponseBody> getAllVideo(@Query("user_id") int user_id);
 
 }
