@@ -1,9 +1,13 @@
 package com.example.syrus_media_mobile;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.syrus_media_mobile.Models.User;
 import com.example.syrus_media_mobile.Models.Video;
 import com.example.syrus_media_mobile.Service_Api.ServiceApi;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,16 +73,23 @@ public class HomeFragment extends Fragment {
             titleTextView.setText(video.getTitle());
             contentTextView.setText(video.getDescription());
             genreTextView.setText(video.getGenre());
-            String imageUrl = Global_var.FULL_PATH_URL+video.getThumbnail_path();
 
-
-
+            String imageUrl = Global_var.FULL_PATH_URL + video.getThumbnail_path().replaceFirst("/", "");
+            Log.d("Image url view", imageUrl);
+            Glide.with(getContext())
+                    .load(imageUrl)
+                    .into(imageView);
             // Set an OnClickListener on the CardView
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Handle the click here
+                    Intent intent = new Intent(getActivity(), ViewVideoActivity.class);
+                    intent.putExtra("selected_video", video);
+
                     Toast.makeText(getContext(), video.getTitle(), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+
                 }
             });
             // Add the CardView to the LinearLayout
