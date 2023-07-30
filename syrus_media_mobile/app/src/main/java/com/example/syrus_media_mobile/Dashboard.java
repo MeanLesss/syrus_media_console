@@ -3,7 +3,11 @@ package com.example.syrus_media_mobile;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +38,7 @@ public class Dashboard extends AppCompatActivity {
     ActivityDashboardBinding dashboardBinding;
     User user ;
     List<Video> videoList = new ArrayList<Video>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +47,43 @@ public class Dashboard extends AppCompatActivity {
         setContentView(dashboardBinding.getRoot());
         //To retrieve object in second Activity
         user = (User) getIntent().getSerializableExtra("loggedUser");
-        getAllVideo();
+//        getAllVideo();
 
-        dashboardBinding.textTest.setText(user.getUsername() + user.getID() + user.getEmail() + user.getPhone());
+        Toast.makeText(Dashboard.this,"Welcome " + user.getUsername() + user.getEmail(), Toast.LENGTH_SHORT).show();
+        // Create a new instance of your fragment
+        HomeFragment homeFragment = new HomeFragment();
+        // Create a Bundle to hold the arguments
+        Bundle args = new Bundle();
+        args.putSerializable("fragUser", user);
+        // Set the arguments on the fragment
+        homeFragment.setArguments(args);
 
-        //        if (videoList.size() > 0) {
-//            for (Video video : videoList) {
-//                TextView textView = new TextView(this);
-//                textView.setText(String.format("%s%d", video.getTitle(), video.getId()));
-//                dashboardBinding.constraintLay.addView(textView);
-//            }
-//        }
+        replaceFragment(homeFragment);
+        dashboardBinding.bottomNavigationView.setBackground(null);
+        dashboardBinding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                replaceFragment(homeFragment);
+            } else if (itemId == R.id.video) {
+                replaceFragment(new VideoFragment());
+            } else if (itemId == R.id.music) {
+                replaceFragment(new MusicFragment());
+            } else if (itemId == R.id.profile) {
+                replaceFragment(new ProfileFragment());
+            }
+            return true;
+        });
+//        dashboardBinding.textTest.setText(user.getUsername() + user.getID() + user.getEmail() + user.getPhone());
+
     }
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
+    }
+
     public void getAllVideo(){
-//        + "?user_id=" + user.getID()
         String URL = Global_var.FULL_PATH_URL ;
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -87,7 +115,7 @@ public class Dashboard extends AppCompatActivity {
                     } catch (Exception e) {
                         Log.e("Login", "Error: " + e.getMessage(), e);
                     }
-                    dashboardBinding.videoCount.setText(String.valueOf(videoList.size()));
+//                    dashboardBinding.videoCount.setText(String.valueOf(videoList.size()));
 
                     Log.e("Video list", "response video: " + videoList);
                 } catch (Exception e) {
