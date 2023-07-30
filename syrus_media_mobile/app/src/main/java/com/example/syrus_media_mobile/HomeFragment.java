@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class HomeFragment extends Fragment {
     List<Video> videoList = new ArrayList<Video>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
         // Get the arguments
         Bundle args = getArguments();
         if (args != null) {
@@ -47,21 +50,27 @@ public class HomeFragment extends Fragment {
         }
         getAllVideo(user.getID());
 
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
         // Get the LinearLayout
         LinearLayout linearLayout = rootView.findViewById(R.id.linearLayout);
-        Toast.makeText(getContext(), "fragement : "+ user.getUsername() + user.getEmail(), Toast.LENGTH_SHORT).show();
-// Loop over the card data
+        Toast.makeText(getContext(), "fragement : " + user.getUsername() + user.getEmail(), Toast.LENGTH_SHORT).show();
+        // Loop over the card data
         for (Video video : videoList) {
+            Log.d("Videos", "response videos: " + video.getTitle() + video.getId());
             // Inflate the CardView layout
             View cardView = inflater.inflate(R.layout.activity_video_card_view, linearLayout, false);
             // Set the CardView's content
             TextView titleTextView = cardView.findViewById(R.id.titleTextView);
             TextView contentTextView = cardView.findViewById(R.id.contentTextView);
+            TextView genreTextView = cardView.findViewById(R.id.genreTextView);
+            ImageView imageView = cardView.findViewById(R.id.imageView);
+//            set the value
             titleTextView.setText(video.getTitle());
             contentTextView.setText(video.getDescription());
+            genreTextView.setText(video.getGenre());
+            String imageUrl = Global_var.FULL_PATH_URL+video.getThumbnail_path();
+
+
+
             // Set an OnClickListener on the CardView
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,7 +79,6 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getContext(), video.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
-
             // Add the CardView to the LinearLayout
             linearLayout.addView(cardView);
         }
@@ -112,7 +120,7 @@ public class HomeFragment extends Fragment {
                     }
 //                    dashboardBinding.videoCount.setText(String.valueOf(videoList.size()));
 
-                    Log.e("Video list", "response video: " + videoList);
+                    Log.d("Video list", "response video: " + videoList);
                 } catch (Exception e) {
                     Log.e("Login", "Error: " + e.getMessage(), e);
                 }
