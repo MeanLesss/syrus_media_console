@@ -6,15 +6,34 @@
     tools:context=".ViewVideoFragement">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/videoTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="40dp"
-        android:text="@string/title" />
-    <VideoView
-        android:id="@+id/videoView"
+        android:orientation="vertical">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+        <TextView
+        android:id="@+id/videoTitle"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        android:textSize="40dp" />
+        <TextView
+            android:id="@+id/videoDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="25dp" />
+        <TextView
+            android:id="@+id/videoGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="16dp" />
+
+    </LinearLayout>
 
 </FrameLayout>

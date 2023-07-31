@@ -85,17 +85,17 @@ public class MainActivity extends AppCompatActivity {
     }
     void getUserInfo(String message,User user){
         if(user!= null && user.getSuccess() != ""){
-            new AlertDialog.Builder(this)
-                    .setTitle(user.getSuccess())
-//                    .setView()
-                    .setPositiveButton("Okay",(dialogInterface, i) -> {
+//            new AlertDialog.Builder(this)
+//                    .setTitle(user.getSuccess())
+////                    .setView()
+//                    .setPositiveButton("Okay",(dialogInterface, i) -> {
                         Intent intent = new Intent(MainActivity.this, Dashboard.class);
                         //To pass:
                         intent.putExtra("loggedUser", user);
                         startActivity(intent);
-                    })
-                    .setNegativeButton("Cancel", (dialogInterface, i) -> {})
-                    .create().show();
+//                    })
+//                    .setNegativeButton("Cancel", (dialogInterface, i) -> {})
+//                    .create().show();
         }else {
             assert user != null;
             new AlertDialog.Builder(this)

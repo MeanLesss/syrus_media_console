@@ -49,7 +49,7 @@ public class Dashboard extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("loggedUser");
 //        getAllVideo();
 
-        Toast.makeText(Dashboard.this,"Welcome " + user.getUsername() + user.getEmail(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(Dashboard.this, "Welcome " + user.getUsername() + user.getEmail(), Toast.LENGTH_SHORT).show();
         // Create a new instance of your fragment
         HomeFragment homeFragment = new HomeFragment();
         // Create a Bundle to hold the arguments
@@ -74,7 +74,6 @@ public class Dashboard extends AppCompatActivity {
             return true;
         });
 //        dashboardBinding.textTest.setText(user.getUsername() + user.getID() + user.getEmail() + user.getPhone());
-
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

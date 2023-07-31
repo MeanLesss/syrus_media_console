@@ -1,13 +1,10 @@
 package com.example.syrus_media_mobile;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +22,6 @@ import com.example.syrus_media_mobile.Service_Api.ServiceApi;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,58 +44,22 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        try {
+            // Get the arguments
+            Bundle args = getArguments();
+            if (args != null) {
+                user = (User) args.getSerializable("fragUser");
+            }
+            getAllVideo(user.getID());
 
-        // Get the arguments
-        Bundle args = getArguments();
-        if (args != null) {
-            user = (User) args.getSerializable("fragUser");
-        }
-        getAllVideo(user.getID());
-
-        // Get the LinearLayout
-        LinearLayout linearLayout = rootView.findViewById(R.id.linearLayout);
-        Toast.makeText(getContext(), "fragement : " + user.getUsername() + user.getEmail(), Toast.LENGTH_SHORT).show();
-        // Loop over the card data
-        for (Video video : videoList) {
-            Log.d("Videos", "response videos: " + video.getTitle() + video.getId());
-            // Inflate the CardView layout
-            View cardView = inflater.inflate(R.layout.activity_video_card_view, linearLayout, false);
-            // Set the CardView's content
-            TextView titleTextView = cardView.findViewById(R.id.titleTextView);
-            TextView contentTextView = cardView.findViewById(R.id.contentTextView);
-            TextView genreTextView = cardView.findViewById(R.id.genreTextView);
-            ImageView imageView = cardView.findViewById(R.id.imageView);
-//            set the value
-            titleTextView.setText(video.getTitle());
-            contentTextView.setText(video.getDescription());
-            genreTextView.setText(video.getGenre());
-
-            String imageUrl = Global_var.FULL_PATH_URL + video.getThumbnail_path().replaceFirst("/", "");
-            Log.d("Image url view", imageUrl);
-            Glide.with(getContext())
-                    .load(imageUrl)
-                    .into(imageView);
-            // Set an OnClickListener on the CardView
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Handle the click here
-                    Intent intent = new Intent(getActivity(), ViewVideoActivity.class);
-                    intent.putExtra("selected_video", video);
-
-                    Toast.makeText(getContext(), video.getTitle(), Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-
-                }
-            });
-            // Add the CardView to the LinearLayout
-            linearLayout.addView(cardView);
+//            Toast.makeText(getContext(), "videoList From fragement : " + videoList.size(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("Home fragement error : ", e.getMessage());
         }
         return rootView;
     }
 
     public void getAllVideo(int user_id){
-//        + "?user_id=" + user.getID()
         String URL = Global_var.FULL_PATH_URL ;
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -122,18 +82,13 @@ public class HomeFragment extends Fragment {
                     // Print out the raw response data
                     String rawResponse = response.raw().toString();
                     Log.d("Login", "Raw response: " + rawResponse);
-//                    String json = response.body().string();
-//                    Log.d("Login", "JSON: " + json);
-
                     try {
-                        videoList = gson.fromJson(response.body().charStream(), videoListType);
-                        Log.d("Login", "Video list: " + videoList);
+                        List<Video> videos = gson.fromJson(response.body().charStream(), videoListType);
+                        Log.d("Video", "Video list: " + videos);
+                        populateLinearLayout(videos);
                     } catch (Exception e) {
-                        Log.e("Login", "Error: " + e.getMessage(), e);
+                        Log.e("Video", "Error: " + e.getMessage(), e);
                     }
-//                    dashboardBinding.videoCount.setText(String.valueOf(videoList.size()));
-
-                    Log.d("Video list", "response video: " + videoList);
                 } catch (Exception e) {
                     Log.e("Login", "Error: " + e.getMessage(), e);
                 }
@@ -142,9 +97,51 @@ public class HomeFragment extends Fragment {
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 // handle failure
                 Log.e("Login", "Error: " + t.getMessage(), t);
-//                    Toast.makeText(SignUp.this, "Nah error", Toast.LENGTH_SHORT).show();
-//                getUserInfo(t.getMessage() + call, user);
             }
         });
     }
+    private void populateLinearLayout(List<Video> videos) {
+        // Get the LinearLayout
+        LinearLayout linearLayout = getView().findViewById(R.id.linearLayout);
+
+        // Loop over the card data
+        if (videos != null && videos.size() > 0) {
+            for (Video video : videos) {
+                Log.d("Videos", "response videos: " + video.getTitle() + video.getId());
+                // Inflate the CardView layout
+                View cardView = getLayoutInflater().inflate(R.layout.activity_video_card_view, linearLayout, false);
+                // Set the CardView's content
+                TextView titleTextView = cardView.findViewById(R.id.titleTextView);
+                TextView contentTextView = cardView.findViewById(R.id.contentTextView);
+                TextView genreTextView = cardView.findViewById(R.id.genreTextView);
+                ImageView imageView = cardView.findViewById(R.id.imageView);
+//          set the value
+                titleTextView.setText(video.getTitle());
+                contentTextView.setText(video.getDescription());
+                genreTextView.setText(video.getGenre());
+
+                String imageUrl = Global_var.FULL_PATH_URL + video.getThumbnail_path().replaceFirst("/", "");
+                Log.d("Image url view", imageUrl);
+                Glide.with(getContext())
+                        .load(imageUrl)
+                        .into(imageView);
+                // Set an OnClickListener on the CardView
+                cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Handle the click here
+                        Intent intent = new Intent(getActivity(), ViewVideoActivity.class);
+                        intent.putExtra("selected_video", video);
+
+                        Toast.makeText(getContext(), video.getTitle(), Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+
+                    }
+                });
+                // Add the CardView to the LinearLayout
+                linearLayout.addView(cardView);
+            }
+        }
+    }
+
 }
