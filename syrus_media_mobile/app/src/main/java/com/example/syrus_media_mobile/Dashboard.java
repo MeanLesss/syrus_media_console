@@ -60,6 +60,12 @@ public class Dashboard extends AppCompatActivity {
 
         replaceFragment(homeFragment);
         dashboardBinding.bottomNavigationView.setBackground(null);
+        dashboardBinding.uploadButton.setOnClickListener(item->{
+            Intent intent = new Intent(Dashboard.this, UploadVideo.class);
+            intent.putExtra("loggedUser", user);
+            startActivity(intent);
+        });
+
         dashboardBinding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
