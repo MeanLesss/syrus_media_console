@@ -18,6 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ViewMusicActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MusicCardView"
+            android:exported="false" />
+        <activity
             android:name=".UploadVideo"
             android:exported="false" />
         <activity

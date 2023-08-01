@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.syrus_media_mobile.Models.Music;
 import com.example.syrus_media_mobile.Models.User;
 import com.example.syrus_media_mobile.Models.Video;
 import com.example.syrus_media_mobile.Service_Api.ServiceApi;
@@ -52,6 +53,9 @@ public class Dashboard extends AppCompatActivity {
         Toast.makeText(Dashboard.this, "Welcome " + user.getUsername() + user.getEmail(), Toast.LENGTH_SHORT).show();
         // Create a new instance of your fragment
         HomeFragment homeFragment = new HomeFragment();
+        VideoFragment videoFragment = new VideoFragment();
+        MusicFragment musicFragment = new MusicFragment();
+        ProfileFragment profileFragment = new ProfileFragment();
         // Create a Bundle to hold the arguments
         Bundle args = new Bundle();
         args.putSerializable("fragUser", user);
@@ -71,11 +75,14 @@ public class Dashboard extends AppCompatActivity {
             if (itemId == R.id.home) {
                 replaceFragment(homeFragment);
             } else if (itemId == R.id.video) {
-                replaceFragment(new VideoFragment());
+                videoFragment.setArguments(args);
+                replaceFragment(videoFragment);
             } else if (itemId == R.id.music) {
-                replaceFragment(new MusicFragment());
+                musicFragment.setArguments(args);
+                replaceFragment(musicFragment);
             } else if (itemId == R.id.profile) {
-                replaceFragment(new ProfileFragment());
+                profileFragment.setArguments(args);
+                replaceFragment(profileFragment);
             }
             return true;
         });

@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
             if (args != null) {
                 user = (User) args.getSerializable("fragUser");
             }
-            getAllVideo(user.getID());
+            getAllVideo(user.getID() != 0 ? user.getID() : 1);
 
 //            Toast.makeText(getContext(), "videoList From fragement : " + videoList.size(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {

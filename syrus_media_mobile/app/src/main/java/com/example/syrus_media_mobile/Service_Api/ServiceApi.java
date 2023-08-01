@@ -21,6 +21,8 @@ public interface ServiceApi {
         Call<ResponseBody> loginUser(@Body User user);
         @GET("VideoController")
         Call<ResponseBody> getAllVideo(@Query("user_id") int user_id);
+        @GET("MusicController")
+        Call<ResponseBody> getAllMusic(@Query("user_id") int user_id);
 
         @Multipart
         @POST("VideoController")

@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,7 +21,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.syrus_media_mobile.Models.User;
 import com.example.syrus_media_mobile.Service_Api.ServiceApi;
@@ -63,10 +66,12 @@ public class UploadVideo extends AppCompatActivity {
         pickVideoLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
-                    videoUri = result.getData().getData();
-                    // TODO: Display a preview of the selected video
-                }
+                videoUri = result.getData().getData();
+
+                // Display a preview of the selected video
+                VideoView videoPreview = findViewById(R.id.videoPreview);
+                videoPreview.setVideoURI(videoUri);
+                videoPreview.start();
             }
         });
 
@@ -76,6 +81,13 @@ public class UploadVideo extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
                     imageUri = result.getData().getData();
                     // TODO: Display a preview of the selected image
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
+                        imageUri = result.getData().getData();
+
+                        // Display a preview of the selected image
+                        ImageView imagePreview = findViewById(R.id.imagePreview);
+                        imagePreview.setImageURI(imageUri);
+                    }
                 }
             }
         });
@@ -121,6 +133,12 @@ public class UploadVideo extends AppCompatActivity {
         pickImageLauncher.launch(intent);
     }
     private void upload() {
+        if (videoUri == null) {
+            // Handle case where no video has been selected
+            // For example, you can display an error message or prompt the user to select a video
+            Toast.makeText(this, "Please select a video to upload", Toast.LENGTH_SHORT).show();
+            return;
+        }
         user = (User) getIntent().getSerializableExtra("loggedUser");
         String title = titleEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
@@ -186,7 +204,6 @@ public class UploadVideo extends AppCompatActivity {
 
     }
 
-
     private String getPathFromUri(Context context, Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
@@ -198,5 +215,16 @@ public class UploadVideo extends AppCompatActivity {
         }
         return null;
     }
+    void getUserInfo(String message){
+
+            new AlertDialog.Builder(this)
+                    .setTitle(message)
+                    //                .setView(customDialogBinding.getRoot())
+                    .setPositiveButton("Okay", (dialogInterface, i) -> {
+                    })
+                    .setNegativeButton("Cancel", (dialogInterface, i) -> {
+                    })
+                    .create().show();
+        }
 
 }

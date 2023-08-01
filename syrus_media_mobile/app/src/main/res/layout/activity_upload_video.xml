@@ -17,13 +17,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pick Video" />
+        <VideoView
+            android:id="@+id/videoPreview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
 
         <Button
             android:id="@+id/pickImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pick Thumbnail" />
-
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerInside" />
         <EditText
             android:id="@+id/titleEditText"
             android:layout_width="match_parent"
