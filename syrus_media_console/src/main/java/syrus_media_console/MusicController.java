@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Music;
+import models.Video;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,7 +58,16 @@ public class MusicController extends HttpServlet {
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(query);
 			HttpSession session = request.getSession();
-			ps.setString(1, session.getAttribute("user_id").toString());
+			String user_id;
+			Object sessionUserId = session.getAttribute("user_id");
+			if (sessionUserId != null) {
+			    user_id = sessionUserId.toString();
+			} else {
+			    user_id = request.getParameter("user_id");
+			}
+			
+			
+			ps.setString(1, user_id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Music music = new Music(rs.getInt("id"), rs.getString("title"), rs.getString("description"),
@@ -70,6 +80,35 @@ public class MusicController extends HttpServlet {
 			// Handle exception
 			out.println("<h1>" + e.getMessage() + "</h1>");
 			e.printStackTrace();
+		}
+		if(request.getParameter("user_id") != null && request.getParameter("user_id") != "") {
+			 // Send a JSON response containing the user details 
+			StringBuilder sb = new StringBuilder();
+			sb.append("[");
+			for (int i = 0; i < musics.size(); i++) {
+			    Music music = musics.get(i);
+			    sb.append("{");
+			    sb.append("\"id\":").append(music.getId()).append(",");
+			    sb.append("\"title\":\"").append(music.getTitle()).append("\",");
+			    sb.append("\"description\":\"").append(music.getDescription()).append("\",");
+			    sb.append("\"file_path\":\"").append(music.getFile_path()).append("\",");
+			    sb.append("\"thumbnail_path\":\"").append(music.getThumbnail_path()).append("\",");
+			    sb.append("\"genre\":\"").append(music.getGenre()).append("\",");
+			    sb.append("\"user_id\":").append(music.getUser_id());
+			    sb.append("}");
+			    if (i < musics.size() - 1) {
+			        sb.append(",");
+			    }
+			}
+			sb.append("]");
+
+			String jsonString = sb.toString();
+
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			out.print(jsonString);
+			out.flush();
+          return;
 		}
 
 		request.setAttribute("musicList", musics);
@@ -155,8 +194,8 @@ public class MusicController extends HttpServlet {
 
 			ps.setString(1, title);
 			ps.setString(2, description);
-			ps.setString(3, music_path + File.separator + musicFileName);
-			ps.setString(4, thum_path + File.separator + thumbnailFileName);
+			ps.setString(3, music_path + "/" + musicFileName);
+			ps.setString(4, thum_path + "/" + thumbnailFileName);
 			ps.setString(5, genre);
 			ps.setString(6, user_id);
 
