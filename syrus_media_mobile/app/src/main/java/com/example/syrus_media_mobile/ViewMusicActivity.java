@@ -11,11 +11,15 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.syrus_media_mobile.Models.Music;
 import com.example.syrus_media_mobile.Models.Video;
 import com.example.syrus_media_mobile.R;
@@ -34,6 +38,21 @@ public class ViewMusicActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Music music = (Music) intent.getSerializableExtra("selected_music");
         musicUrl = Global_var.FULL_PATH_URL + music.getFile_path().replaceFirst("/", "");
+
+        ImageView imageView = findViewById(R.id.media_controller_anchor);
+        TextView titleTextView =  findViewById(R.id.videoTitle);
+        TextView contentTextView =  findViewById(R.id.videoDescription);
+        TextView genreTextView =  findViewById(R.id.videoGenre);
+
+        titleTextView.setText(music.getTitle());
+        contentTextView.setText(music.getDescription());
+        genreTextView.setText("Genre : " + music.getGenre());
+        String imageUrl = Global_var.FULL_PATH_URL + music.getThumbnail_path().replaceFirst("/", "");
+        Log.d("Image url view", imageUrl);
+        Glide.with(this)
+                .load(imageUrl)
+                .into(imageView);
+
 // Set up the MediaPlayer
         final MediaPlayer mediaPlayer = new MediaPlayer();
 
